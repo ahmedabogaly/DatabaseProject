@@ -1,0 +1,118 @@
+CREATE DATABASE librarymanagementsystem;
+
+USE librarymanagementsystem;
+
+CREATE TABLE member(
+    mem_id INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    mem_name VARCHAR(255) UNIQUE NOT NULL,
+    mem_type ENUM('Librarian', 'customer'),
+    mem_address VARCHAR(255),
+    mem_phone CHAR(11),
+    mem_email VARCHAR(255) UNIQUE NOT NULL,
+    mem_password VARCHAR(255) NOT NULL,
+    mem_date DATE NOT NULL
+);
+
+CREATE TABLE category(
+    cat_id INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    cat_name VARCHAR(255) UNIQUE NOT NULL,
+    cat_description VARCHAR(255)
+);
+
+CREATE TABLE publisher(
+    pub_id INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    pub_name VARCHAR(255) UNIQUE NOT NULL,
+    pub_address VARCHAR(255),
+    pub_phone CHAR(11)
+);
+
+CREATE TABLE book(
+    book_id INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    book_title VARCHAR(255) UNIQUE NOT NULL,
+    book_auther VARCHAR(255) NOT NULL,
+    book_description VARCHAR(255),
+    book_year YEAR,
+    book_price DOUBLE,
+    book_available BOOLEAN,
+    
+    category_id int(11),
+    publisher_id int(11)
+);
+
+CREATE TABLE operation(
+    oper_type ENUM('Borrow a book','Return a book'),
+    borrow_date DATE NOT NULL,
+    return_date DATE NOT NULL,
+
+    member_id int(11) NOT NULL,
+    books_id int(11) NOT NULL
+);
+
+ALTER TABLE book ADD CONSTRAINT a 
+FOREIGN KEY(category_id) REFERENCES category(cat_id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+ALTER TABLE book ADD CONSTRAINT b
+FOREIGN KEY(publisher_id) REFERENCES publisher(pub_id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+ALTER TABLE operation ADD CONSTRAINT c
+FOREIGN KEY(member_id) REFERENCES member(mem_id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+ALTER TABLE operation ADD CONSTRAINT d
+FOREIGN KEY(books_id) REFERENCES book(book_id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+INSERT INTO member (mem_id, mem_name, mem_type, mem_address, mem_phone, mem_email, mem_password, mem_date) VALUES ('1', 'Ahmed Ali', 'Librarian', 'Abu Qir Street Sidi Jaber Alexandria', '01013461234', 'AhmedAli12@mail.com', 'Achmk12354@s', '2019-11-01');
+INSERT INTO member (mem_id, mem_name, mem_type, mem_address, mem_phone, mem_email, mem_password, mem_date) VALUES ('2', 'Osama Amr', 'Librarian', 'Sharawy Street Tanta', '01122552147', 'OsamaAmr22@mail.com', 'ertyuioiiuyu', '2019-12-10');
+INSERT INTO member (mem_id, mem_name, mem_type, mem_address, mem_phone, mem_email, mem_password, mem_date) VALUES ('3', 'Hamed Abdo', 'Customer', 'Elgesh Street Kafr El Zayat', NULL, 'HamedAbdo29@mail.com', 'qazxswed3458', '2019-12-18');
+INSERT INTO member (mem_id, mem_name, mem_type, mem_address, mem_phone, mem_email, mem_password, mem_date) VALUES ('4', 'Mostafa Ahmed', 'Customer', 'Elnozha Naser City Cairo', '01549734863', 'MostafaAhmed654@mail.com', 'rfvbgtyh5678', '2020-01-11');
+INSERT INTO member (mem_id, mem_name, mem_type, mem_address, mem_phone, mem_email, mem_password, mem_date) VALUES ('5', 'Nagy Abdel Samie', 'Librarian', 'Bahr Street Mahalla', '01258825772', 'NagyAbdelSamie65@mail.com', 'tgbnhyujm987', '2020-01-18');
+INSERT INTO member (mem_id, mem_name, mem_type, mem_address, mem_phone, mem_email, mem_password, mem_date) VALUES ('6', 'Abdul Rahman Ali', 'Customer', 'Abbas el Akkad Naser City Cairo', '01267916689', 'AbdulRahmanAli53@mail.com', 'mkiujnhj1245', '2020-01-20');
+INSERT INTO member (mem_id, mem_name, mem_type, mem_address, mem_phone, mem_email, mem_password, mem_date) VALUES ('7', 'Mansour Zaher', 'Librarian', 'Kobry Square Banha', NULL, 'MansourZaher765@mail.com', 'poiuyuhjnm23', '2020-01-27');
+INSERT INTO member (mem_id, mem_name, mem_type, mem_address, mem_phone, mem_email, mem_password, mem_date) VALUES ('8', 'Ehab Osama', 'Customer', 'ElBekbash ElEsawy Miami Alexandria', '01085288418', 'EhabOsama654@mail.com', 'xcvbn456rg5h', '2020-03-20');
+INSERT INTO member (mem_id, mem_name, mem_type, mem_address, mem_phone, mem_email, mem_password, mem_date) VALUES ('9', 'Hisham Hassen', 'Customer', 'Ahmed Orabi Street Suez', NULL, 'HishamHassen23456@mail.com', 'ukjdbkjwiwow', '2020-04-09');
+INSERT INTO member (mem_id, mem_name, mem_type, mem_address, mem_phone, mem_email, mem_password, mem_date) VALUES ('10', 'Ashraf Habashi', 'Customer', 'Tenth of Ramadan Qalyoub', '01113461236', 'AshrafHabashi76@mail.com', '6t387y98hddv', '2020-04-22');
+INSERT INTO member (mem_id, mem_name, mem_type, mem_address, mem_phone, mem_email, mem_password, mem_date) VALUES ('11', 'Hazem Rafeeq', 'Librarian', 'AlGalaa Street Victoria Alexandria', '01022552145', 'HazemRafeeq987@mail.com', 'uhqwe8ypuoi3', '2020-05-05');
+INSERT INTO member (mem_id, mem_name, mem_type, mem_address, mem_phone, mem_email, mem_password, mem_date) VALUES ('12', 'Tawfik Mohammed', 'Customer', 'Elgomherya Street Port Said', NULL, 'TawfikMohammed6332@mail.com', 'oui3hy98ufid', '2020-05-14');
+INSERT INTO member (mem_id, mem_name, mem_type, mem_address, mem_phone, mem_email, mem_password, mem_date) VALUES ('13', 'Islam Hosni', 'Librarian', 'Television Street Luxor city', '01249734863', 'IslamHosni2345@mail.com', '4987yuoiudnv', '2020-05-30');
+INSERT INTO member (mem_id, mem_name, mem_type, mem_address, mem_phone, mem_email, mem_password, mem_date) VALUES ('14', 'Attia Amr', 'Customer', 'Elmarghany Helioplis Cairo', '01058825772', 'AttiaAmr98@mail.com', '6789u2h3iref', '2020-06-01');
+
+INSERT INTO publisher (pub_id, pub_name, pub_address, pub_phone) VALUES ('1', 'Dar Al Tanweer', '19 El Basateen St. Cairo, Floor 8 Flat 82 Egypt', '0020227738931');
+INSERT INTO publisher (pub_id, pub_name, pub_address, pub_phone) VALUES ('2', 'Dar Al Khaleej', 'Abdali near the Ministry of Industry and Trade Circle Signal of Chicago Complex Amman', '009624647559');
+INSERT INTO publisher (pub_id, pub_name, pub_address, pub_phone) VALUES ('3', 'Dar Al-Manhaj', 'King Hussein Street United Insurance Company Building Amman', '009624650624 ');
+INSERT INTO publisher (pub_id, pub_name, pub_address, pub_phone) VALUES ('4', 'Dar Al-Farabi', 'Wata Al-Musaytbeh Jabal Al Arab Street New TV Building Beirut Lebanon', '009611301461');
+INSERT INTO publisher (pub_id, pub_name, pub_address, pub_phone) VALUES ('5', 'Dar Al-Falah', 'Amman Medical City Street King Abdullah II Street Jordan', '0096265411547');
+
+INSERT INTO category (cat_id, cat_name, cat_description) VALUES ('1', 'Programming', 'Learn programming easy');
+INSERT INTO category (cat_id, cat_name, cat_description) VALUES ('2', 'History', 'Learn about the events in the past');
+INSERT INTO category (cat_id, cat_name, cat_description) VALUES ('3', 'Law', 'Learn about the laws and the solving of crimes');
+INSERT INTO category (cat_id, cat_name, cat_description) VALUES ('4', 'Sports', 'Learn about sports sorts and laws');
+INSERT INTO category (cat_id, cat_name, cat_description) VALUES ('5', 'Technology', 'Learn how to use technological tools and devices');
+INSERT INTO category (cat_id, cat_name, cat_description) VALUES ('6', 'Science Fiction', 'Learn about the different science fiction storys');
+INSERT INTO category (cat_id, cat_name, cat_description) VALUES ('7', 'Medicine', 'Learn about medicines and treatment of various diseases');
+INSERT INTO category (cat_id, cat_name, cat_description) VALUES ('8', 'Arts', 'Learn about the various types of arts');
+INSERT INTO category (cat_id, cat_name, cat_description) VALUES ('9', 'Education', 'Learn about teaching methods and topics');
+
+INSERT INTO book (book_id, book_title, book_auther, book_description, book_year, book_price, book_available, category_id, publisher_id) VALUES ('1', 'Before you start programming', 'Bunbari Ayoub', 'Important fundamentals of programming', '2019', '20' , '1', '1', '1');
+INSERT INTO book (book_id, book_title, book_auther, book_description, book_year, book_price, book_available, category_id, publisher_id) VALUES ('2', 'The Ottoman Safavid Conflict', 'Mohammad Jamal Barot', 'Political conflicts over the Ottoman Empire', '2018', '7', '1', '2', '1');
+INSERT INTO book (book_id, book_title, book_auther, book_description, book_year, book_price, book_available, category_id, publisher_id) VALUES ('3', 'Criminal Protection from Cyber ​​Crime', 'Nader AlGhazwani', 'Hackers penal laws on the Internet', '2017', '75.5', '0', '3', '1');
+INSERT INTO book (book_id, book_title, book_auther, book_description, book_year, book_price, book_available, category_id, publisher_id) VALUES ('4', 'Sports, health and the environment', 'Youssef Lazim Kamash', 'the definition of health and what is meant by it', '2016', '6.75', '1', '4', '2');
+INSERT INTO book (book_id, book_title, book_auther, book_description, book_year, book_price, book_available, category_id, publisher_id) VALUES ('5', 'E-Learning', 'Maher Hassan Rabah', 'How to use internet technology in our society', '2014', '50.25', '0', '5', '3');
+INSERT INTO book (book_id, book_title, book_auther, book_description, book_year, book_price, book_available, category_id, publisher_id) VALUES ('6', 'The dominance of eternity', 'Muhammad Qurt Al-Jazmi', 'With the passage of time and decades and generations succession, discoveries increase, science develops and spreads', '2015', '11.25', '0', '6', '1');
+INSERT INTO book (book_id, book_title, book_auther, book_description, book_year, book_price, book_available, category_id, publisher_id) VALUES ('7', 'Clinical pharmacology', 'Maysoon Al-Fakhoury', 'The effect of medications on the functions of body organs', '2016', '9.5', '1', '7', '3');
+INSERT INTO book (book_id, book_title, book_auther, book_description, book_year, book_price, book_available, category_id, publisher_id) VALUES ('8', 'Suspended dream', 'Ibrahim the bridegroom', 'Someone wants to reach a dream, but it is very difficult', '2013', '33.4', '0', '8', '4');
+INSERT INTO book (book_id, book_title, book_auther, book_description, book_year, book_price, book_available, category_id, publisher_id) VALUES ('9', 'Language teaching', 'Mohamed Ali El-Khouly', 'Learn about your language and its cases and comments', '2009', '18.8', '0', '9', '5');
+INSERT INTO book (book_id, book_title, book_auther, book_description, book_year, book_price, book_available, category_id, publisher_id) VALUES ('10', 'Basics in general sciences', 'Siham Mahmoud Khasawneh', 'Learn the basics of Chemistry, physics, geology, and biology', '2014', '15', '0', '9', '3');
+INSERT INTO book (book_id, book_title, book_auther, book_description, book_year, book_price, book_available, category_id, publisher_id) VALUES ('11', 'Football fitness rules', 'Munther Al-Khatib', 'The steps involved to be physically fit to play soccer professionally', '2016', '13', '1', '4', '3');
+INSERT INTO book (book_id, book_title, book_auther, book_description, book_year, book_price, book_available, category_id, publisher_id) VALUES ('12', 'Islam and Western civilization', 'Mohamed Ali El-Khouly', 'The comparison between Islamic civilization and Western civilizations in different eras', '2001', '30', '1', '2', '5');
+INSERT INTO book (book_id, book_title, book_auther, book_description, book_year, book_price, book_available, category_id, publisher_id) VALUES ('13', 'Blogs Napoleons campaign on Egypt', 'Hala Suleiman', 'He described the situation of Egypt and its people during the Napoleonic campaign', '2012', '6.3', '0', '2', '4');
+INSERT INTO book (book_id, book_title, book_auther, book_description, book_year, book_price, book_available, category_id, publisher_id) VALUES ('14', 'Learning Disabilities', 'Iman Abbas pumice', 'Problems and difficulties facing children during the learning stage', '2015', '15.5', '1', '9', '3');
+
+INSERT INTO operation (oper_type, borrow_date, return_date, member_id, books_id) VALUES ('Borrow a book', '2020-06-01', '2020-07-10', '1', '3');
+INSERT INTO operation (oper_type, borrow_date, return_date, member_id, books_id) VALUES ('Return a book', '2020-06-04', '2020-07-13', '2', '5');
+INSERT INTO operation (oper_type, borrow_date, return_date, member_id, books_id) VALUES ('Return a book', '2020-06-05', '2020-07-15', '4', '6');
+INSERT INTO operation (oper_type, borrow_date, return_date, member_id, books_id) VALUES ('Return a book', '2020-06-07', '2020-07-16', '5', '7');
+INSERT INTO operation (oper_type, borrow_date, return_date, member_id, books_id) VALUES ('Borrow a book', '2020-06-09', '2020-07-18', '6', '9');
+INSERT INTO operation (oper_type, borrow_date, return_date, member_id, books_id) VALUES ('Return a book', '2020-06-10', '2020-07-20', '8', '10');
+INSERT INTO operation (oper_type, borrow_date, return_date, member_id, books_id) VALUES ('Return a book', '2020-06-13', '2020-07-25', '9', '11');
+INSERT INTO operation (oper_type, borrow_date, return_date, member_id, books_id) VALUES ('Borrow a book', '2020-06-14', '2020-07-29', '10', '12');
+INSERT INTO operation (oper_type, borrow_date, return_date, member_id, books_id) VALUES ('Borrow a book', '2020-06-15', '2020-08-01', '11', '13');
+INSERT INTO operation (oper_type, borrow_date, return_date, member_id, books_id) VALUES ('Borrow a book', '2020-06-16', '2020-08-08', '13', '14');
